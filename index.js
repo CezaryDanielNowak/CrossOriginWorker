@@ -1,3 +1,6 @@
+// Time to do some sketchy s**t... doo da doo da,
+// Hope I get away with it oh doo da day
+
 const getLocalWorkerUrl = (originalWorkerUrl) => {
   if (!originalWorkerUrl.includes('://') || originalWorkerUrl.includes(window.location.origin)) {
     // The same origin - Worker will run fine
