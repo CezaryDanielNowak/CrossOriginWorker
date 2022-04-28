@@ -1,0 +1,19 @@
+{
+  "name": "crossoriginworker",
+  "version": "1.0.0",
+  "description": "Method to run worker from 3rd party origins",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CezaryDanielNowak/CrossOriginWorker.git"
+  },
+  "author": "CezaryDanielNowak",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CezaryDanielNowak/CrossOriginWorker/issues"
+  },
+  "homepage": "https://github.com/CezaryDanielNowak/CrossOriginWorker#readme"
+}
