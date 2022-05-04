@@ -1,6 +1,6 @@
 {
   "name": "crossoriginworker",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Method to run worker from 3rd party origins",
   "main": "index.js",
   "scripts": {

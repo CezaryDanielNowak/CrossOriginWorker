@@ -1,7 +1,17 @@
 // Time to do some sketchy s**t... doo da doo da,
 // Hope I get away with it oh doo da day
 
-const getLocalWorkerUrl = (originalWorkerUrl) => {
+const type = 'application/javascript';
+
+const getCrossOriginWorkerURL = (originalWorkerUrl, _options = {}) => {
+
+  const options = {
+    skipSameOrigin: true,
+    useBlob: true,
+
+    ..._options,
+  };
+
   if (!originalWorkerUrl.includes('://') || originalWorkerUrl.includes(window.location.origin)) {
     // The same origin - Worker will run fine
     return Promise.resolve(originalWorkerUrl);
@@ -15,15 +25,21 @@ const getLocalWorkerUrl = (originalWorkerUrl) => {
         workerPath.pop();
 
         const importScriptsFix = `const _importScripts = importScripts;
-importScripts = (...urls) => {
+const _fixImports = (url) => new URL(url, '${workerPath.join('/') + '/'}').href;
+importScripts = (...urls) => _importScripts(...urls.map(_fixImports));`;
 
-  return _importScripts(...urls.map((url) => new URL(url, '${workerPath.join('/') + '/'}').href))
-};`;
+        let finalURL = `data:${type},` + encodeURIComponent(importScriptsFix + codeString);
 
-        resolve('data:application/javascript,' + encodeURIComponent(importScriptsFix + codeString));
+        if (options.useBlob) {
+          finalURL = URL.createObjectURL(
+            new Blob([`importScripts("${finalURL}")`], { type })
+          )
+        }
+
+        resolve(finalURL);
       })
       .catch(reject)
   );
 };
 
-module.exports = getLocalWorkerUrl;
+module.exports = getCrossOriginWorkerURL;
